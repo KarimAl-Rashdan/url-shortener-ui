@@ -16,11 +16,31 @@ function App () {
     })()
   }, [])
 
+  const addNewUrl = (newUrl) => {
+    const bodyObject = {
+      method:"POST",
+      body: JSON.stringify(newUrl),
+      headers: {
+        "Content-type" : "application/json"
+      }
+    }
+    return fetch('http://localhost:3001/api/v1/urls', bodyObject)
+      .then((response) => {
+        if(!response.ok) {
+          throw new Error ("Could not post url. Please try again!")
+        } else {
+          return response.json()
+        }
+      })
+      .then((data) => setUrls([...urls, data]))
+      .catch((error) => setError(error.message))
+  }
+
     return (
       <main className="App">
         <header>
           <h1>URL Shortener</h1>
-          <UrlForm />
+          <UrlForm addNewUrl={addNewUrl}/>
         </header>
 
         <UrlContainer urls={urls}/>
