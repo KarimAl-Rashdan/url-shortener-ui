@@ -40,10 +40,11 @@ function App () {
       <main className="App">
         <header>
           <h1>URL Shortener</h1>
+          {error && error}
           <UrlForm addNewUrl={addNewUrl}/>
         </header>
 
-        <UrlContainer urls={urls}/>
+        <UrlContainer className="urlContainer" urls={urls}/>
       </main>
     );
   
